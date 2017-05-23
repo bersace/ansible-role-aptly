@@ -4,6 +4,7 @@
 
 # Custom gpg key
 aptly_custom_gpg_key_file: False
+aptly_custom_gpg_key_content: False
 aptly_custom_gpg_key_id: False
 
 # System gpg keys archive import

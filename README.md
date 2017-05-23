@@ -47,8 +47,9 @@ This role contains two tests methods :
 Follow the possible variables with their default values
 
 ```yaml
-# Custom gpg key
+# Custom gpg key. Define either _file or _content.
 aptly_custom_gpg_key_file : False
+aptly_custom_gpg_key_content : False
 aptly_custom_gpg_key_id   : False
 
 # System gpg keys archive import

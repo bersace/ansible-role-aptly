@@ -4,8 +4,9 @@
 
 - fail:
     msg: 'A custom gpg key should be defined'
-  when: "{{ (aptly_custom_gpg_key_file == False)
-              or (aptly_custom_gpg_key_id == False) }}"
+  when: "{{ (aptly_custom_gpg_key_file == False
+             and aptly_custom_gpg_key_content == False)
+            or (aptly_custom_gpg_key_id == False) }}"
 
 
 - name: 'GPG | CUSTOM | Check if key already imported'
@@ -19,8 +20,9 @@
 - name: 'GGP | CUSTOM | Upload key file'
   become: True
   copy:
-    src: "{{ aptly_custom_gpg_key_file }}"
-    dest: '/tmp/'
+    dest: '/tmp/aptly_private_key.gpg'
+    src: "{{ aptly_custom_gpg_key_file or omit }}"
+    content: "{{ aptly_custom_gpg_key_content or omit }}"
     owner: "{{ aptly_user }}"
     group: "{{ aptly_user }}"
     mode: '0400'
@@ -33,13 +35,13 @@
   shell: >
     gpg
     --allow-secret-key-import
-    --import /tmp/{{ aptly_custom_gpg_key_file | basename }}
+    --import /tmp/aptly_private_key.gpg
   when: "{{ custom_gpg_check.stdout.find(aptly_custom_gpg_key_id) == -1 }}"
 
 
 - name: 'GPG | CUSTOM | Remove key file'
   become: True
   file:
-    path: "/tmp/{{ aptly_custom_gpg_key_file | basename }}"
+    path: "/tmp/aptly_private_key.gpg"
     state: 'absent'
   when: "{{ custom_gpg_check.stdout.find(aptly_custom_gpg_key_id) == -1 }}"
