@@ -91,7 +91,7 @@ def test_packages(Package):
     package = Package('aptly')
 
     assert package.is_installed
-    assert '0.9.7' in package.version
+    assert package.version > '1.'
 
 
 def test_aptly_mirror_management(Command):
