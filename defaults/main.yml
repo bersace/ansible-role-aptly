@@ -20,7 +20,7 @@ aptly_user_home_mode: 0700
 aptly_version: '0.9.6'
 aptly_activate_api: False
 aptly_gpg_key: 'ED75B5A4483DA07C'
-aptly_gpg_keyserver: 'hkp://keys.gnupg.net'
+aptly_gpg_keyserver: 'hkp://pool.sks-keyservers.net'
 aptly_repository: 'deb http://repo.aptly.info/ squeeze main'
 aptly_repository_file_mode: '0644'
 aptly_packages:
