@@ -37,12 +37,14 @@ script:
 
   # Run the role/playbook with ansible-playbook.
   - >
+    ANSIBLE_CONFIG=tests/ansible.cfg
     ansible-playbook -i tests/inventory ./testing_deployment.yml
     --skip-tags='role::aptly::custom-gpg' --connection=local --sudo
 
   # Run the role/playbook again, checking to make sure it's idempotent.
   # Check change == 1 due to mirror update
   - >
+    ANSIBLE_CONFIG=tests/ansible.cfg
     ansible-playbook -i tests/inventory ./testing_deployment.yml
     --skip-tags='role::aptly::custom-gpg' --connection=local --sudo
     | grep -q 'changed=[1].*failed=0'
